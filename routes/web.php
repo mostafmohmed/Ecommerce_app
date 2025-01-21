@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
-Route::get('/', function () {
-    return view('dashboard.welcome');
-});
+// Route::get('/', function () {
+//     return view('dashboard.welcome');
+// });
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
