@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\Admincontroller;
 use App\Http\Controllers\Dashboard\auth\logincontroller;
 use App\Http\Controllers\Dashboard\auth\restpasswordcontroller;
 use App\Http\Controllers\Dashboard\indexcontroller;
@@ -36,6 +37,10 @@ Route::group(
             Route::get('/welcome',[indexcontroller::class,'index'])->name('index');
             Route::post('/logout',[logincontroller::class,'logout'])->name('logout');
 Route::resource('/Role',Rolecontroller::class);
+Route::resource('/Admin',Admincontroller::class);
+Route::controller('Admin/changeStatus',[Admincontroller::class,'changeStatus']);
+
+
         });
 
 
