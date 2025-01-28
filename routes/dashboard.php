@@ -3,6 +3,7 @@
 use App\Http\Controllers\Dashboard\auth\logincontroller;
 use App\Http\Controllers\Dashboard\auth\restpasswordcontroller;
 use App\Http\Controllers\Dashboard\indexcontroller;
+use App\Http\Controllers\Dashboard\Rolecontroller;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 Route::group(
@@ -34,7 +35,7 @@ Route::group(
         Route::group(['middleware' => 'auth:admin'],function () {
             Route::get('/welcome',[indexcontroller::class,'index'])->name('index');
             Route::post('/logout',[logincontroller::class,'logout'])->name('logout');
-
+Route::resource('/Role',Rolecontroller::class);
         });
 
 

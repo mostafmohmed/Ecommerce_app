@@ -1,13 +1,21 @@
 <?php
-namespace App\Repositories\Auth;
+namespace App\services\Auth;
 
+use App\Repositories\Auth\AuthResitories;
 use Illuminate\Support\Facades\Auth;
 
 
 class Authservice{
-    public function login($email,$password,$remmber){
-$authRepositories=New AuthResitories();
- return $authRepositories->login($email,$password,$remmber);
+
+ protected $authRepository;
+    public function __construct(AuthResitories $authRepository) {
+   $this->authRepository=$authRepository;
+    }
+    public function login($credenstials,$guard,$remmber=false){
+return $this->authRepository->login($credenstials,$guard,$remmber);
+    }
+    public function lougout($guard){
+return $this->authRepository->logout($guard);
     }
 
 }
