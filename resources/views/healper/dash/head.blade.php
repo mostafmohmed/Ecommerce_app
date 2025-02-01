@@ -17,6 +17,9 @@
     
 
     <link rel="stylesheet" type="text/css" href="{{asset('dash/app-assets')}}/css-rtl/vendors.css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.2.1/css/dataTables.dataTables.min.css">
+
     <link rel="stylesheet" type="text/css" href="{{asset('dash/app-assets')}}/vendors/css/weather-icons/climacons.min.css">
     <!-- END VENDOR CSS-->
     <!-- BEGIN MODERN CSS-->
@@ -32,8 +35,12 @@
     <link rel="stylesheet" type="text/css" href="{{asset('dash/app-assets')}}/css-rtl/core/colors/palette-climacon.css">
 
     <link rel="stylesheet" type="text/css" href="{{asset('dash/app-assets')}}/fonts/meteocons/style.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.1/css/dataTables.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.3/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/2.0.4/css/colReorder.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.5.0/css/rowReorder.bootstrap5.min.css">
     <!-- END Page Level CSS-->
     <!-- BEGIN Custom CSS-->
-  
+  <link rel="stylesheet" href="https://cdn.datatables.net/select/3.0.0/css/select.bootstrap5.min.css">
     <!-- END Custom CSS-->
   </head>

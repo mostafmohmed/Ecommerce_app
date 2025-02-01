@@ -3,8 +3,10 @@
 use App\Http\Controllers\Dashboard\Admincontroller;
 use App\Http\Controllers\Dashboard\auth\logincontroller;
 use App\Http\Controllers\Dashboard\auth\restpasswordcontroller;
+use App\Http\Controllers\Dashboard\Categoryconrtoller;
 use App\Http\Controllers\Dashboard\indexcontroller;
 use App\Http\Controllers\Dashboard\Rolecontroller;
+use App\Http\Controllers\Dashboard\wordconrtoller;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 Route::group(
@@ -41,7 +43,41 @@ Route::resource('/Admin',Admincontroller::class);
 Route::controller('Admin/changeStatus',[Admincontroller::class,'changeStatus']);
 
 
+
+
+Route::group(['middleware' => 'can:global_shipping'],function(){
+    Route::controller(wordconrtoller::class)->group(function(){
+        Route::prefix('countries')->name('countries.')->group(function () {
+            Route::get('/', 'getAllCountries')->name('index');
+            Route::get('/{country_id}/governorates',     'getGovsByCountry')->name('governorates.index');
+            Route::get('/changestatuscountry/{id}', 'changesstatuscountry')->name('status');
+            
         });
+
+
+    });
+    Route::controller(wordconrtoller::class)->group(function(){
+        Route::prefix('governorates')->name('governorates.')->group(function () {
+            Route::put('/shipping-price', 'changeshipping')->name('shipping-price');
+          
+            Route::get('/changestatuscountry/{id}', 'changesstatuscountry')->name('status');
+            
+        });
+
+
+    });
+   });
+
+
+Route::group(['middleware' => 'can:global_shipping'],function (){
+    
+    Route::resource('/category',Categoryconrtoller::class);
+    Route::get('/categorys-all',[Categoryconrtoller::class,'getall'])->name('getall');
+
+});
+
+        });
+    
 
 
 

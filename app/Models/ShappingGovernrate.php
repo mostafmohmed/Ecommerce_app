@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShappingGovernrate extends Model
 {
-    //
+    
+    
+    protected $guarded = [];
+   
 }

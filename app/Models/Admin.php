@@ -15,6 +15,10 @@ class Admin extends Authenticatable
     protected $guarded = [];
     protected $translatable =['name']; 
    
+    public function role()
+    {
+        return $this->belongsTo(Role::class , 'role_id');
+    }
     public function hasAccess($config_permession)  // products , users , admins
     {
 
