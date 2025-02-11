@@ -1,6 +1,6 @@
 <div class="form-group">
     <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-      <button type="button" class="btn btn-outline-success">{{__('dashboard.edit')}} <li class="la la-edit" ></li></button>
+      <a type="button" href="{{route('dashpoard.category.edit',$category->id)}}" class="btn btn-outline-success">{{__('dashboard.edit')}} <li class="la la-edit" ></li></a>
       <button type="button"  class="btn btn-outline-danger">{{__('dashboard.status')}} <li class="la la-stop" ></li> </button>
       <div class="btn-group" role="group">
         <button id="btnGroupDrop2" type="button" class="btn btn-outline-info dropdown-toggle"

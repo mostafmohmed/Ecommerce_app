@@ -27,7 +27,8 @@ class DatabaseSeeder extends Seeder
             countryseeder::class,
             Govermoertseeder::class,
             cityseeder::class,
-            categoryseeder::class
+            categoryseeder::class,
+            brandeseeder::class
 
            
         ]);

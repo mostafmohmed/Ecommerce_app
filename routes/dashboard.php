@@ -3,6 +3,7 @@
 use App\Http\Controllers\Dashboard\Admincontroller;
 use App\Http\Controllers\Dashboard\auth\logincontroller;
 use App\Http\Controllers\Dashboard\auth\restpasswordcontroller;
+use App\Http\Controllers\Dashboard\Brandeconrtoller;
 use App\Http\Controllers\Dashboard\Categoryconrtoller;
 use App\Http\Controllers\Dashboard\indexcontroller;
 use App\Http\Controllers\Dashboard\Rolecontroller;
@@ -60,7 +61,7 @@ Route::group(['middleware' => 'can:global_shipping'],function(){
         Route::prefix('governorates')->name('governorates.')->group(function () {
             Route::put('/shipping-price', 'changeshipping')->name('shipping-price');
           
-            Route::get('/changestatuscountry/{id}', 'changesstatuscountry')->name('status');
+            Route::get('/changestatusgoverment/{id}', 'changesstatusgoverment')->name('status');
             
         });
 
@@ -76,6 +77,11 @@ Route::group(['middleware' => 'can:global_shipping'],function (){
 
 });
 
+Route::group(['middleware' => 'can:brands'],function(){
+    
+    Route::resource('/Brande',Brandeconrtoller::class);
+    Route::get('/Brandes-all',[Brandeconrtoller::class,'getall'])->name('brandsgetall');
+});
         });
     
 

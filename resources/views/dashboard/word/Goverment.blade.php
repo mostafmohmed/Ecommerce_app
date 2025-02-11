@@ -96,7 +96,7 @@
 
                                   <td>
                                       <input type="checkbox" class="switch change_status"
-                                          country-id={{ $Gov->id }} id="switch5"
+                                      gov-id={{ $Gov->id }} id="switch5"
                                           @if ($Gov->getstatus() == 'Active' || $Gov->getstatus() == 'مفعل') checked @endif
                                           data-group-cls="btn-group-sm" />
                                   </td>
@@ -171,6 +171,39 @@
 
             });
         });
+    </script>
+    <script>
+          $(document).on('change', '.change_status', function() {
+
+var id = $(this).attr('gov-id');
+var url = "{{ route('dashpoard.governorates.status', ':id') }}";
+url = url.replace(':id', id);
+alert(id);
+$.ajax({
+    url: url,
+    type: 'GET',
+
+    success: function(response) {
+        if (response.status == 'success') {
+
+            $('.tostar_success').text(response.message).show();
+
+            // change status
+            $('#status_' + response.data.id).empty();
+            $('#status_' + response.data.id).text(response.data.is_active);
+
+        } else {
+            $('.tostar_error').show();
+            $('.tostar_error').text(response.data.message);
+        }
+        setTimeout(function() {
+            $('.tostar_success').hide();
+        }, 5000);
+
+    }
+
+});
+});
     </script>
 @endsection
 

@@ -27,6 +27,22 @@ class categoryservices
        return   $category;
 
     }
+    public function getCategoriesExceptChildren($id){
+        return $this->categoryrepositories->getCategoriesExceptChildren($id);
+    }
+    // public function update($category,$reguest){
+    //     $categorya=  $category->update($reguest) ;
+    //     return   $categorya;
+    // }
+    public function update($reguest,$id){
+        $category=$this->categoryrepositories->update($this->getCategoryByid($id),$reguest);
+        if (!$category) {
+           return false;
+        }
+        return true;
+    }
     
-
+public function getparentcategory(){
+    return $this->categoryrepositories->getparentcategory();
+}
 }

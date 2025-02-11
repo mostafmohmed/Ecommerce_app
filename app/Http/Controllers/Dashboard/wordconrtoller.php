@@ -43,6 +43,18 @@ class wordconrtoller extends Controller
         'message'=>__('dashboard.success_msg')
       ]);
     }
+public function changesstatusgoverment($id){
+  $gov=  $this->cityservices->changestatsgoverment($id)  ;
+  if (!$gov) {
+    return response()->json(['status'=>false, 'message'=>__('dashboard.error_msg')]);
+  }
+  return response()->json([
+    'status'=>true,
+    'data'=>$this->cityservices->getGovermentid($id),
+    'message'=>__('dashboard.success_msg')
+  ]);
+}
+
 
 public function getGovsByCountry($country_id){
   $Govs= $this->cityservices->getallGoverment($country_id);

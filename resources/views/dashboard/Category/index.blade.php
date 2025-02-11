@@ -12,9 +12,9 @@
                           <li class="breadcrumb-item"><a
                                   href="{{ route('dashpoard.index') }}">{{ __('dashboard.dashboard') }}</a>
                           </li>
-                          <li class="breadcrumb-item"><a href="{{ route('dashpoard.Role.index') }}">Roles</a>
+                          <li class="breadcrumb-item"><a href="{{ route('dashpoard.category.index') }}">category</a>
                           </li>
-                          <li class="breadcrumb-item active"><a href="#">Create Role</a>
+                          <li class="breadcrumb-item active"><a href="{{ route('dashpoard.category.create') }}">Create Role</a>
                           </li>
                       </ol>
                   </div>

@@ -43,4 +43,7 @@
     <!-- BEGIN Custom CSS-->
   <link rel="stylesheet" href="https://cdn.datatables.net/select/3.0.0/css/select.bootstrap5.min.css">
     <!-- END Custom CSS-->
+    <link rel="stylesheet" href="{{ asset('file-input/css/fileinput.min.css') }}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" crossorigin="anonymous">
+
   </head>

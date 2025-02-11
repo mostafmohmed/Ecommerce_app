@@ -46,7 +46,7 @@ return $Governreate;
     public function changeStatus($model)
     {
         $model = $model->update([
-            'is_active' => $model->is_active == 'Active' || $model->is_active == 'مفعل' ? 0 : 1,
+            'status' => $model->status == 'Active' || $model->status == 'مفعل' ? 0 : 1,
         ]);
 
         return $model;

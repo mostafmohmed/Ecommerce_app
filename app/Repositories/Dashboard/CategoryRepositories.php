@@ -13,6 +13,7 @@ class CategoryRepositories
     {
         //
     }
+    
     public function getall(){
         $category=Category::latest()->get();
         return $category;
@@ -22,12 +23,12 @@ class CategoryRepositories
         return   $category;
     }
     public function create($reguest){
-        $category=Category::create($reguest); 
+        $category=Category::create($reguest->all()); 
 
 return  $category;
     }
     public function update($category,$reguest){
-        $categorya=  $category->update($reguest) ;
+        $categorya=  $category->update($reguest->all()) ;
         return   $categorya;
     }
     public function delete($category){
