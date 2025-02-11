@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\categoryRequest;
 use App\Models\Category;
+use App\services\Dashboard\categoryservices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
@@ -14,6 +16,10 @@ class Categoryconrtoller extends Controller
     /**
      * Display a listing of the resource.
      */
+    public  $categoryservices;
+    public function __construct(categoryservices $categoryservices ) {
+        $this->categoryservices = $categoryservices;
+    }
     public function getall(){
         $category=Category::get();
         return DataTables::of( $category)->addColumn('name',function( $category){
@@ -58,16 +64,24 @@ class Categoryconrtoller extends Controller
      */
     public function create()
     {
-        //
+        $categories=$this->categoryservices->getparentcategory();
+        return view('dashboard.Category.create',compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(categoryRequest $request)
     {
-        //
-    }
+        $category=$this->categoryservices->create($request);
+        if (!$category) {
+            Session::flash('error' , __('dashboard.error_msg'));
+            return redirect()->back();
+            }
+            Session::flash('success' , __('dashboard.success_msg'));
+            return redirect()->back();
+        }
+  
 
     /**
      * Display the specified resource.
@@ -82,15 +96,23 @@ class Categoryconrtoller extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category=  $this->categoryservices->getCategoryByid($id);
+        $categories=$this->categoryservices->getCategoriesExceptChildren( $id);
+   return view('dashboard.Category.edite',compact('category','categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(categoryRequest $request, string $id)
     {
-        //
+      $category=  $this->categoryservices->update($request,$id);
+      if (!$category) {
+        Session::flash('error' , __('dashboard.error_msg'));
+      return redirect()->back();
+      }
+      Session::flash('success' , __('dashboard.success_msg'));
+      return redirect()->back();
     }
 
     /**

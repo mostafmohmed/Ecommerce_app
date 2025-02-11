@@ -1,0 +1,1 @@
+<img src="{{asset('uploads/brands/'.$brand->logo)}}"  class="img-fluid" width="50px" height="50px">
