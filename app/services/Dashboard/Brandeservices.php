@@ -4,7 +4,10 @@ namespace App\services\Dashboard;
 
 use App\MangeInage;
 use App\Repositories\Dashboard\BrendeRepositories;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Cache;
+=======
+>>>>>>> origin/main
 use Yajra\DataTables\Facades\DataTables;
 
 class Brandeservices
@@ -18,7 +21,10 @@ class Brandeservices
       $this->brendeRepositories=$brendeRepositories;
       $this->mangeInage=$mangeInage;
     }
+<<<<<<< HEAD
     
+=======
+>>>>>>> origin/main
     public function update($request,$id){
      $brande  = $this->getBrandeBYId($id);
         if ($request->logo !=NULL) {
@@ -37,7 +43,10 @@ class Brandeservices
          $file_name=     $this->mangeInage->uploadSingleImage('/', $request['logo'],'brand');
             $request['logo']= $file_name;
         }
+<<<<<<< HEAD
         Cache::forget('category_count');
+=======
+>>>>>>> origin/main
         return    $this->brendeRepositories->create($request);
 
     }
