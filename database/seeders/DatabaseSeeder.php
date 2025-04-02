@@ -28,8 +28,9 @@ class DatabaseSeeder extends Seeder
             Govermoertseeder::class,
             cityseeder::class,
             categoryseeder::class,
-            brandeseeder::class
-
+            brandeseeder::class,
+            couponseeder::class,
+            Attributeseeder::class
            
         ]);
 

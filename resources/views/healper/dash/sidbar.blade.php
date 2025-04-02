@@ -12,11 +12,11 @@
                 </li>
                 <li><a class="menu-item" href="{{ route('dashpoard.category.create') }}" data-i18n="nav.dash.crypto">{{ __('dashboard.category_create') }}</a>
 =======
-        <li class=" nav-item"><a href="index.html"><i class="la la-folder"></i><span class="menu-title" data-i18n="nav.dash.main">{{ __('dashboard.categories') }}</span><span class="badge badge badge-info badge-pill float-right mr-2">{{ $categories_count }}</span></a>
+        <li class=" nav-item"><a href="index.html"><i class="la la-folder"></i><span class="menu-title" data-i18n="nav.dash.main">{{ __('dashboard.categories') }}</span><span class="badge badge badge-info badge-pill float-right mr-2">{{ $category_count }}</span></a>
             <ul class="menu-content">
                 <li class="active"><a class="menu-item" href="{{ route('dashpoard.countries.index') }}" data-i18n="nav.dash.ecommerce">{{ __('dashboard.categories') }}</a>
                 </li>
-                <li><a class="menu-item" href="{{ route('dashpoard.countries.create') }}" data-i18n="nav.dash.crypto">{{ __('dashboard.category_create') }}</a>
+                <li><a class="menu-item" href="" data-i18n="nav.dash.crypto">{{ __('dashboard.category_create') }}</a>
 >>>>>>> origin/main
                 </li>
 
@@ -28,7 +28,7 @@
 <<<<<<< HEAD
         <li class=" nav-item"><a href="index.html"><i class="la la-check-square"></i><span class="menu-title" data-i18n="nav.dash.main">{{ __('dashboard.brands') }}</span><span class="badge badge badge-info badge-pill float-right mr-2">{{ $brand_count }}</span></a>
 =======
-        <li class=" nav-item"><a href="index.html"><i class="la la-check-square"></i><span class="menu-title" data-i18n="nav.dash.main">{{ __('dashboard.brands') }}</span><span class="badge badge badge-info badge-pill float-right mr-2">{{ $brands_count }}</span></a>
+        <li class=" nav-item"><a href="index.html"><i class="la la-check-square"></i><span class="menu-title" data-i18n="nav.dash.main">{{ __('dashboard.brands') }}</span><span class="badge badge badge-info badge-pill float-right mr-2">{{ $brand_count }}</span></a>
 >>>>>>> origin/main
             <ul class="menu-content">
                 <li class="active"><a class="menu-item" href="{{ route('dashpoard.Brande.index') }}" data-i18n="nav.dash.ecommerce">{{ __('dashboard.brands') }}</a>
@@ -58,7 +58,7 @@
 <<<<<<< HEAD
         <li class=" nav-item"><a href="#"><i class="la la-user-secret"></i><span class="menu-title" data-i18n="nav.templates.main">{{ __('dashboard.admins') }}</span><span class="badge badge badge-info badge-pill float-right mr-2">{{ $Admin_count }}</span></a>
 =======
-        <li class=" nav-item"><a href="#"><i class="la la-user-secret"></i><span class="menu-title" data-i18n="nav.templates.main">{{ __('dashboard.admins') }}</span><span class="badge badge badge-info badge-pill float-right mr-2">{{ $admins_count }}</span></a>
+        <li class=" nav-item"><a href="#"><i class="la la-user-secret"></i><span class="menu-title" data-i18n="nav.templates.main">{{ __('dashboard.admins') }}</span><span class="badge badge badge-info badge-pill float-right mr-2">{{ $Admin_count }}</span></a>
 >>>>>>> origin/main
             <ul class="menu-content">
                 <li>

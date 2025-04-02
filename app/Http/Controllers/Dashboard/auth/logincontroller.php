@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Dashboard\auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\dash\loginrequst;
+use App\Models\Admin;
 use App\services\Auth\Authservice;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class logincontroller extends Controller implements  HasMiddleware
 
@@ -25,6 +27,11 @@ class logincontroller extends Controller implements  HasMiddleware
         ];
     }
   public function showlogin(){
+    // Admin::create([
+    //  'name'=>'admin',
+    //   	'password'=>Hash::make('12345678') ,
+    //      'email'=>'Admin@email.com',
+    // ]);
     return view('dashboard.auth.login');
   }
 

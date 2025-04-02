@@ -24,7 +24,7 @@
     <!-- END VENDOR CSS-->
     <!-- BEGIN MODERN CSS-->
   
-
+@yield('cs')
     <link rel="stylesheet" type="text/css" href="{{asset('dash/app-assets')}}/css-rtl/app.css">
     <link rel="stylesheet" type="text/css" href="{{asset('dash/app-assets')}}/css-rtl/custom-rtl.css">
     <!-- END MODERN CSS-->
