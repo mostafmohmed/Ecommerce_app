@@ -18,9 +18,9 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                             <li class="breadcrumb-item"><a
                                     href="{{ route('dashpoard.index') }}">{{ __('dashboard.dashboard') }}</a>
                             </li>
-                            <li class="breadcrumb-item"><a href="{{ route('dashpoard.Role.index') }}">Roles</a>
+                            <li class="breadcrumb-item"><a href="{{ route('dashpoard.Role.index') }}">Admin</a>
                             </li>
-                            <li class="breadcrumb-item active"><a href="#">Create Role</a>
+                            <li class="breadcrumb-item active"><a href="#">Create Admin</a>
                             </li>
                         </ol>
                     </div>
@@ -44,7 +44,7 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
         <div class="content-body">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title" id="basic-layout-colored-form-control">{{ __('dashboard.roles') }} </h4>
+                    <h4 class="card-title" id="basic-layout-colored-form-control"> </h4>
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -76,12 +76,12 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                                 @forelse ($dmins as $dmin)
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
-                                        <td>{{ $role->name }} </td>
-                                        <td>{{ $role->email }} </td>
-                                        <td>{{ $role->password }} </td>
-                                        <td>{{ $role->role->role}} </td>
-                                        <td>{{ $role->status }} </td>
-                                        <td>{{ $role->created_at->format('Y-m-d') }} </td>
+                                        <td>{{ $dmin->name }} </td>
+                                        <td>{{ $dmin->email }} </td>
+                                        <td>{{ $dmin->password }} </td>
+                                        <td>{{ $dmin->role->role}} </td>
+                                        <td>{{ $dmin->status }} </td>
+                                        <td>{{ $dmin->created_at->format('Y-m-d') }} </td>
                                      
                                         <td>
                                             <div class="dropdown float-md-left">
@@ -90,17 +90,17 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                                                     aria-haspopup="true" aria-expanded="false">Operations</button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownBreadcrumbButton">
                                                     <a class="dropdown-item"
-                                                        href="{{ route('dashpoard.Admin.edit', $role->id) }}"><i
+                                                        href="{{ route('dashpoard.Admin.edit', $dmin->id) }}"><i
                                                             class="la la-edit"></i>Edit</a>
 
                                                     <div class="dropdown-divider"></div>
                                                     <a class="dropdown-item"
                                                        
-                                                    class="la @if($admin->status == 'Active') la-toggle-on @else la-toggle-off @endif"></i>@if($admin->status == 'Active') Deactivate @else Activate @endif ><i
+                                                    class="la @if($dmin->status == 'Active') la-toggle-on @else la-toggle-off @endif"></i>@if($dmin->status == 'Active') Deactivate @else Activate @endif ><i
                                                             class="la la-trash"></i> Delete</a>
                                                             <a class="dropdown-item"
                                                             href="javascript:void(0)"
-                                                            onclick="if(confirm('Are you sure you want to delete this role?')){document.getElementById('delete-form-{{ $role->id }}').submit();} return false"><i
+                                                            onclick="if(confirm('Are you sure you want to delete this role?')){document.getElementById('delete-form-{{ $dmin->id }}').submit();} return false"><i
                                                                 class="la la-trash"></i> Delete</a>
                                                 </div>
                                             </div>
@@ -109,8 +109,8 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 
 
                                     {{-- delete form  --}}
-                                    <form id="delete-form-{{ $role->id }}"
-                                        action="{{ route('dashpoard.Admin.destroy', $role->id) }}" method="post">
+                                    <form id="delete-form-{{ $dmin->id }}"
+                                        action="{{ route('dashpoard.Admin.destroy', $dmin->id) }}" method="post">
                                         @csrf
                                         @method('DELETE')
                                     </form>

@@ -123,7 +123,7 @@
                                             <td>
                                                 <div class="form-group">
                                                     <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                                                        <a href="" class="edit_coupon btn btn-outline-success">
+                                                        <a href="{{route('dashpoard.produect.edit',$item->id )}}" class="edit_coupon btn btn-outline-success">
                                                             {{ __('dashboard.edit') }} <i class="la la-edit"></i>
                                                         </a>
                                                         <button product-id="{{ $item->id }}" type="button" class="btn btn-outline-info status_btn">

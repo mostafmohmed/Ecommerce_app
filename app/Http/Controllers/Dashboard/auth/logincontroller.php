@@ -13,19 +13,19 @@ use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class logincontroller extends Controller implements  HasMiddleware
+class logincontroller extends Controller 
 
 {
   protected $Authservice;
   public function __construct(Authservice $Authservice) {
     $this->Authservice = $Authservice;
   }
-    static function middleware(): array
-    {
-        return [
-            new Middleware(middleware: 'guest:admin', except: ['logout']),
-        ];
-    }
+    // static function middleware(): array
+    // {
+    //     return [
+    //         new Middleware(middleware: 'guest:admin', except: ['logout']),
+    //     ];
+    // }
   public function showlogin(){
     // Admin::create([
     //  'name'=>'admin',

@@ -36,8 +36,8 @@ console.log('dsad');
              buttonsStyling: true
          });
          swalWithBootstrapButtons.fire({
-             title: 'ddd',
-             text: "You won't be able to revert this!",
+             title: 'delete',
+             text: "You delete",
              icon: "warning",
              showCancelButton: true,
              confirmButtonText: "Yes, delete it!",

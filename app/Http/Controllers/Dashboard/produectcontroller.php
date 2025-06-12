@@ -4,14 +4,57 @@ namespace App\Http\Controllers\Dashboard;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\produectrequest;
+use App\Models\Attribute;
 use App\Models\Broduct;
 use App\Models\ProductVariant;
+use App\Models\Produect_image;
 use App\Models\VariantAttribute;
+use Illuminate\Support\Facades\File;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 class produectcontroller extends Controller
 {
    
+    public function create (){
+        return view('dashboard.produect.create');
+    }
+   public function delete_image($id){
+  
+$image=Produect_image::find($id);
+$imagePath = public_path('uploads/produect/' . $image->file_name);
+if (file_exists($imagePath)) {
+    unlink($imagePath); // Delete the file
+}
+
+$image->delete();
+return response()->json(['success' => true]);
+   }
+    
+    public function edit($id){
+        $valueRowCount=0;
+        $variants=0;
+        $variantAttributes=[];
+$produect=Broduct::find($id);
+$images=$produect->images;
+$productAttributes=Attribute::with('attributrvalues')->get();
+if ($produect->has_variants==1) {
+    $valueRowCount=$produect->variants->count();
+    $variants=$produect->variants;
+    foreach ($variants as $key => $variant) {
+        foreach ($variant->variantAttributes as $variantAttribute) {
+            $variantAttributes[$key][$variantAttribute->attributeValue->attribute_id] = $variantAttribute->attribute_value_id;
+        }
+    }
+    // dd( $variantAttributes);
+    // dd($variantAttributes);
+
+    # code...
+}
+return view('dashboard.produect.update',compact('valueRowCount','produect','variants','productAttributes','variantAttributes','images'));
+
+       
+    }
 
     public function show($id){
         $product=Broduct::with('variants.variantAttributes')-> find($id);
@@ -33,6 +76,47 @@ public function destroy($id){
     public function index(){
         $produect=Broduct::all();
 return view('dashboard.produect.index',compact('produect'));
+    }
+    public function update($id,Request $request){
+        $product =Broduct::find($id);
+        $productData = [
+            'name' => ['ar' =>  $product->getTranslation('name' ,'ar')
+            , 'en' => $product->getTranslation('name' ,'en')],
+            'desc' => ['ar' =>  $product->getTranslation('desc' ,'ar'), 'en' => $product->getTranslation('desc' ,'en')],
+            'small_desc' => ['ar' =>  $product->getTranslation('small_desc' ,'ar'), 'en' => $product->getTranslation('small_desc' ,'en')],
+            'category_id' => $product->category_id,
+            'brand_id' => $product->brand_id,
+            'sku' => $product->sku,
+            'available_for' => $product->available_for,
+            'has_variants' => $product->has_variants,
+            'price' => $product->has_variants == 1 ? null :$product->price,
+            'manage_stock' => $product->has_variants == 1 ? 1 :  $product->manage_stock,
+            'quantity' => $product->manage_stock == 0 ? null : $product->quantity,
+            'has_discount' => $product->has_discount,
+            'discount' => $product->has_discount == 0 ? null : $product->discount,
+            'start_discount' => $product->has_discount == 0 ? null : $product->start_discount,
+            'end_discount' => $product->has_discount == 0 ? null : $product->end_discount,
+        ];
+        $product= $product->update( $productData);
+        if ( $product->has_variants) {
+        $product_variants_delete=   $product->variants()->find($id);
+        $product_variants_delete=    $product->delete();
+            foreach ($request->  prices as $key => $value) {
+                $ProductVariant=ProductVariant::create([
+                    'product_id'=>$product->id,
+
+                    'price'=>$request->prices[$key],
+                    'stock'=>$request->quantities[$key]
+                ]);
+              foreach ($request->  attributeValues[$key] as  $attributeValue) {
+                VariantAttribute::create([
+             'product_variant_id'=>  $ProductVariant->id,
+                   'attribute_value_id'=>$attributeValue
+                ]);
+              }
+            }
+        }
+
     }
     public function generateImageName($image)
     {
@@ -60,9 +144,9 @@ return view('dashboard.produect.index',compact('produect'));
 
        
         $product = [
-            'name' => ['ar' => $request->name_ar, 'en' => $request->name_en],
-            'desc' => ['ar' => $request->desc_ar, 'en' => $request->desc_en],
-            'small_desc' =>  ['ar' => $request->small_desc_ar, 'en' => $request->small_desc_en],
+            'name' => ['ar' => $request->name['ar'], 'en' => $request->name['en']],
+            'desc' => ['ar' => $request->desc['ar'], 'en' => $request->desc['en']],
+            'small_desc' =>  ['ar' => $request->small_desc['ar'], 'en' => $request->small_desc['en']],
             'category_id' => $request->category_id,
             'brand_id' => $request->brand_id,
             'sku' => $request->sku,
@@ -114,6 +198,7 @@ return view('dashboard.produect.index',compact('produect'));
 
             
         }
+        return response()->json(['status'=>true]);
     }
 
    public function store(Request $request){

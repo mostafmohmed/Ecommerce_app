@@ -12,9 +12,9 @@
                           <li class="breadcrumb-item"><a
                                   href="{{ route('dashpoard.index') }}">{{ __('dashboard.dashboard') }}</a>
                           </li>
-                          <li class="breadcrumb-item"><a href="{{ route('dashpoard.Role.index') }}">Roles</a>
+                          <li class="breadcrumb-item"><a href="{{ route('dashpoard.Role.index') }}">Country</a>
                           </li>
-                          <li class="breadcrumb-item active"><a href="#">Create Role</a>
+                          <li class="breadcrumb-item active"><a href="#">Create Country</a>
                           </li>
                       </ol>
                   </div>
@@ -38,7 +38,7 @@
       <div class="content-body">
           <div class="card">
               <div class="card-header">
-                  <h4 class="card-title" id="basic-layout-colored-form-control">{{ __('dashboard.roles') }} </h4>
+                  <h4 class="card-title" id="basic-layout-colored-form-control"> </h4>
                   <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                   <div class="heading-elements">
                       <ul class="list-inline mb-0">

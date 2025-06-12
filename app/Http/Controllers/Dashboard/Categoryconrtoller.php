@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard;
-
+use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\categoryRequest;
 use App\Models\Category;
@@ -27,7 +27,13 @@ class Categoryconrtoller extends Controller
             return $category->getTranslation('name',app()->getLocale());
             
           
-        })->addColumn('created_at',function( $category){
+        })->addColumn('logo',function( $category){
+            $category=$category->logo;
+            return view('dashboard.Category.image',compact('category'));
+            
+          
+        })
+        ->addColumn('created_at',function( $category){
             
             return $category->created_at->format('Y-m-d');
             
@@ -120,7 +126,18 @@ class Categoryconrtoller extends Controller
      */
     public function destroy(string $id)
     {
+
      $category=Category::find($id);
+  
+     $path = public_path('uploads/category/' . $category->getRawOriginal('logo'));
+// dd(  $path);
+     if (File::exists( $path )) {
+
+         File::delete( $path );
+         // return 'fhfvhngvn';
+         # code...;
+       
+     }
      $category->delete();
      Session::flash('success' , __('dashboard.success_msg'));
      return redirect()->back();

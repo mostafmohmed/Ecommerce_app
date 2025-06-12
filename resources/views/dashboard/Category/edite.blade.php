@@ -51,7 +51,7 @@
 
 
                                 <p class="card-text">{{ __('dashboard.form_edit') }}.</p>
-                                <form class="form" action="{{ route('dashpoard.category.update', $category->id) }}" method="POST" >
+                                <form class="form" action="{{ route('dashpoard.category.update', $category->id) }}" method="POST"  enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
 
@@ -67,13 +67,18 @@
                                             <label for="eventRegInput1">{{ __('dashboard.name_ar') }}</label>
                                             <input type="text" value="{{ $category->getTranslation('name', 'ar') }}" class="form-control"
                                                 placeholder="{{ __('dashboard.name_ar') }}" name="name[ar]">
-                                        </div>
+                                                    </div>
+                                                <div class="form-group">
+                                                    <label for="eventRegInput1"></label>
+                                                    <input type="file"  class="form-control"
+                                                       name="logo" id="image">
+                                                            </div>
                                         <div class="form-group">
                                             <label for="eventRegInput1">{{ __('dashboard.select_parent') }}</label>
                                             <select name="parent" class="form-control">
                                                 <option value="">{{ __('dashboard.select_parent') }}</option>
                                                 @foreach ($categories as $cat)
-                                                    <option value="{{ $cat->id }}"  @selected($category->id==$cat->parent) >{{ $cat->name }}</option>
+                                                <option value="{{ $cat->id }}" @selected($category->parent == $cat->id) >{{ $cat->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -113,6 +118,27 @@
     </div>
 </div>
 
+
+@endsection
+@section('js')
+<script>
+$('#image').fileinput({
+    theme: 'fa5',
+    allowedFileTypes: ['image'],
+    maxFileCount: 1,
+    enableResumableUpload: false,
+    showUpload: false,
+    initialPreviewAsData: true,
+    initialPreview: [
+       
+                "{{ $category->logo }}",
+          
+    ],
+   
+
+
+});
+</script>
 
 @endsection
 

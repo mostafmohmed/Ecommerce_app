@@ -18,21 +18,25 @@ class categoryseeder extends Seeder
                 'name'=>['en'=>'elctronics' , 'ar'=>'الكترونيات'],
                 'status'=>1,
                 'parent'=>null,
+                'logo'=>'baby.webp'
             ],
             [
                 'name'=>['en'=>'category2' , 'ar'=>'التصنيف الثاني'],
                 'status'=>1,
                 'parent'=>null,
+                 'logo'=>'baby.webp'
             ],
             [
                 'name'=>['en'=>'category3' , 'ar'=>'التصنيف الثالث'],
                 'status'=>1,
                 'parent'=>null,
+                 'logo'=>'baby.webp'
             ],
             [
                 'name'=>['en'=>'category4' , 'ar'=>'التصنيف الرابع'],
                 'status'=>1,
                 'parent'=>null,
+                 'logo'=>'baby.webp'
             ],
         ];
 

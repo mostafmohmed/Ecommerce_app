@@ -23,13 +23,13 @@
                 <p></p>
         </div>
         <div class="form-group">
-            <label for="name">{{ __('dashboard.answer') }}</label>
+            <label for="name">answer arabic</label>
             <input type="text" name="answer[ar]"   id="answer_ar" class="form-control" id="name"
                 placeholder="{{ __('dashboard.answer_ar') }}">
                 <p></p>
         </div>
         <div class="form-group">
-            <label for="name">{{ __('dashboard.answer') }}</label>
+            <label for="name">answer English</label>
             <input type="text" name="answer[en]" id="answer_en" class="form-control" id="name"
                 placeholder="{{ __('dashboard.answer_en') }}">
                 <p></p>

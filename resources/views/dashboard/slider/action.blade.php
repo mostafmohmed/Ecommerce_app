@@ -1,0 +1,1 @@
+<button slider_id={{$slider->id}}   class='de_co btn btn-primary delete_confiurm_bt' > delete  </button>

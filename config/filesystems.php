@@ -44,6 +44,13 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+        'slider'=> [
+            'driver' => 'local',
+            'root' => public_path('/uploads/sliders'),
+            'url' => env('APP_URL'),
+            'visibility' => 'public',
+            'throw' => false,
+        ],
         'brand' => [
             'driver' => 'local',
             'root' => public_path('/uploads/brands'),
@@ -58,6 +65,14 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+        'category' => [
+            'driver' => 'local',
+            'root' => public_path('/uploads/category'),
+            'url' => env('APP_URL'),
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+        
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

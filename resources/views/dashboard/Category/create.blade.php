@@ -49,7 +49,7 @@
                                 @include('healper.validtion')
 
                                 <p class="card-text">{{ __('dashboard.form_edit') }}.</p>
-                                <form class="form" action="{{ route('dashpoard.category.store')}}" method="POST" >
+                                <form class="form" action="{{ route('dashpoard.category.store')}}" method="POST"  enctype="multipart/form-data">
                                     @csrf
 
                                     <div class="form-body">
@@ -60,8 +60,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="eventRegInput1">{{ __('dashboard.name_ar') }}</label>
-                                            <input type="text" value="{{ old('name[ar]')}}" class="form-control"
+                                            <input type="text"  class="form-control"
                                                 placeholder="{{ __('dashboard.name_ar') }}" name="name[ar]">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="eventRegInput1"> uplode logo</label>
+                                            <input type="file"  class="form-control"
+                                                name="logo" id="image">
                                         </div>
                                         <div class="form-group">
                                             <label for="eventRegInput1">{{ __('dashboard.select_parent') }}</label>
@@ -107,4 +112,18 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-fileinput/js/fileinput.min.js"></script> 
+<script>
+        $('#image').fileinput({
+                theme: 'fa5',
+                allowedFileTypes: ['image'],
+                maxFileCount: 1,
+                enableResumableUpload: false,
+                showUpload: false,
+
+            });
+</script>
 @endsection

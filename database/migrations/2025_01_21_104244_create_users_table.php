@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('status')->default(1);
-            $table->foreignId('citiy_id')->constrained('cities')->cascadeOnDelete();
+            $table->foreignId('country_id')->constrained('countries')->cascadeOnDelete();
             $table->foreignId('governorate_id')->constrained('governreates')->cascadeOnDelete();
             
             $table->rememberToken();

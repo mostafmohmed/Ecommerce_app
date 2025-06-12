@@ -14,7 +14,7 @@
                           </li>
                           <li class="breadcrumb-item"><a href="{{ route('dashpoard.category.index') }}">category</a>
                           </li>
-                          <li class="breadcrumb-item active"><a href="{{ route('dashpoard.category.create') }}">Create Role</a>
+                          <li class="breadcrumb-item active"><a href="{{ route('dashpoard.category.create') }}">Create category</a>
                           </li>
                       </ol>
                   </div>
@@ -38,7 +38,7 @@
       <div class="content-body">
           <div class="card">
               <div class="card-header">
-                  <h4 class="card-title" id="basic-layout-colored-form-control">{{ __('dashboard.roles') }} </h4>
+                  <h4 class="card-title" id="basic-layout-colored-form-control"> </h4>
                   <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                   <div class="heading-elements">
                       <ul class="list-inline mb-0">
@@ -75,6 +75,7 @@
                           <tr>
                             <th>id</th>
                             <th>name</th>
+                            <th>logo</th>
                             <th>slug</th>
                             <th>status</th>
                             <th>created_add</th>
@@ -157,6 +158,8 @@
         columns:[
             {data:'id'},
             {data:'name'},
+            {data:'logo'},
+            
             {data:'slug'},
             {data:'status'},
             {data:'created_at'},

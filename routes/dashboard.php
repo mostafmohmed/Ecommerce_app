@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\auth\logincontroller;
 use App\Http\Controllers\Dashboard\auth\restpasswordcontroller;
 use App\Http\Controllers\Dashboard\Brandeconrtoller;
 use App\Http\Controllers\Dashboard\Categoryconrtoller;
+use App\Http\Controllers\Dashboard\Contactcontroller;
 use App\Http\Controllers\Dashboard\Couponsconrtoller;
 use App\Http\Controllers\Dashboard\indexcontroller;
 use App\Http\Controllers\Dashboard\produectcontroller;
@@ -13,6 +14,8 @@ use App\Http\Controllers\Dashboard\Rolecontroller;
 use App\Http\Controllers\Dashboard\wordconrtoller;
 use App\Http\Controllers\ddcontroller;
 use App\Http\Controllers\Fqscontroller;
+use App\Http\Controllers\website\Fqscontroller as webFqscontroller;
+use App\Http\Controllers\Dashboard\sliderController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -22,13 +25,33 @@ Route::group(
         'as'=>'dashpoard.',
         'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
     ], function(){ //...
-        Route::get('/kk',function(){
-            return view('tesi');
-            });
+        // Route::get('/kk',function(){
+        //     return view('tesi');
+        //     });
+        
+          Route::post('/question/sendawnser',[webFqscontroller::class,'sendawnser'])->name('questions.sendawnser');
+         Route::get('/question/getall',[webFqscontroller::class,'getall'])->name('questions.getall');
+        Route::get('/question',[webFqscontroller::class,'index'])->name('questions.index');
+        Route::get('/contact',[Contactcontroller::class,'massages']);
+        Route::get('/contact_details/{id}',[Contactcontroller::class,'contact_details'])->name('contact_details');
+        
+        Route::get('/contact_search',[Contactcontroller::class,'search'])->name('contact_search');
+        Route::post('/mark_unreade/{id}',[Contactcontroller::class,'mark_unreade'])->name('mark_unreade');
+        
+        Route::controller(sliderController::class)->group(function(){
+            Route::get('/sliders','slider')->name('sliders')   ;
+            Route::post('/slider','store')->name('slider.store')   ;
+            Route::delete('/slider/delete/{id}','destroy')->name('slider.destroy')   ;
+            
+            Route::get('/slidersall','slidersall')->name('slidersall')   ;
+            
+            
+           });
             
             Route::post('produect/status',[produectcontroller::class,'status'])->name('produect.status');
         Route::resource('/attribute',AttributeController::class);
         Route::resource('/produect',produectcontroller::class);
+        Route::post('produect/image/delete/{id}',[produectcontroller::class,'delete_image'])->name('produect.image.delete');
         Route::post('/submitproduect',[produectcontroller::class,'submit'])->name('produect.submitbroudect');
 
         Route::post('/validtionstep1',[produectcontroller::class,'validtionstep1'])->name('produect.validtionstep1');

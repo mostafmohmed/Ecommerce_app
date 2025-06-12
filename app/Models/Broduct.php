@@ -3,12 +3,21 @@
 namespace App\Models;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Builder;
 class Broduct extends Model
 {
     use HasTranslations ;
     protected $guarded = [];
     protected $translatable =['name','small_desc','desc']; 
+    public function scopeDiscounted($query)
+{
+    return $query->where('has_discount', 1);
+}
+    public function scopeActive(Builder $query)
+    {
+        return $query->where('status', 1);
+        // or use: ->where('is_active', true); depending on your column
+    }
     public function variants()
     {
         return $this->hasMany(ProductVariant::class,'product_id');

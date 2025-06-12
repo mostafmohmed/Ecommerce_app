@@ -27,9 +27,16 @@ class CategoryRepositories
 
 return  $category;
     }
-    public function update($category,$reguest){
-        $categorya=  $category->update($reguest->all()) ;
-        return   $categorya;
+    public function update($category,$reguest,$file_name=null){
+        if ($file_name !=null) {
+            $categorya=  $category->update([
+                'logo'=>$file_name
+            ]) ;
+        }else{
+            $categorya=  $category->update($reguest) ;
+            return   $categorya;
+        }
+   
     }
     public function delete($category){
         $category=  $category->delete() ;

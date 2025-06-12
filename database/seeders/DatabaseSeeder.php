@@ -30,8 +30,11 @@ class DatabaseSeeder extends Seeder
             categoryseeder::class,
             brandeseeder::class,
             couponseeder::class,
-            Attributeseeder::class
-           
+            Attributeseeder::class,
+            sliderseeder::class,
+            UserSeeder::class,
+            ContactSeeder::class,
+            Fqseeder::class
         ]);
 
         
