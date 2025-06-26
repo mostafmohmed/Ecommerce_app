@@ -18,7 +18,10 @@ class ProduectController extends Controller
   }
   public function showproduect($slug){
 $produect= $this->produectserveices->getproduectByslug($slug);
-return $produect;
+
+$relatiedproduect= $this->produectserveices->getRelatedProduectByslug($slug,1);
+// dd($relatiedproduect);
+return view('website.show',compact('relatiedproduect','produect'));
   }
     public function prodectype($type){
         if ($type=='flashproduect') {
@@ -29,7 +32,7 @@ return $produect;
             'name' => $item->name,
             'price' => $item->price,
             'discount' => $item->discount,
-                'url' => route('website.produect', $item->slug),
+                'url' => 'hhhhhhhhhhhhhhhhh',
             'has_variants' => $item->has_variants,
             'image' => $item->images->first() ? asset('uploads/produect/'.$item->images->first()->file_name) : null
         ];
@@ -45,7 +48,7 @@ return $produect;
             'price' => $item->price,
             'discount' => $item->discount,
             'has_variants' => $item->has_variants,
-                'url' => route('website.produect', $item->slug),
+                'url' => 'hjjjjjjjjjjjjjj',
             'image' => $item->images->first() ? asset('uploads/produect/'.$item->images->first()->file_name) : null
         ];
     });
@@ -60,7 +63,7 @@ return $produect;
             'price' => $item->price,
             'discount' => $item->discount,
             'has_variants' => $item->has_variants,
-                'url' => route('website.produect', $item->slug),
+                'url' =>'jjjjjjjjjjjjjjjjjjjjjj',
             'image' => $item->images->first() ? asset('uploads/produect/'.$item->images->first()->file_name) : null
         ];
     });

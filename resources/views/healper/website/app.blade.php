@@ -19,6 +19,16 @@
 <link rel="stylesheet" href="{{asset('website/css')}}/aos-3.0.0.css">
 
 <link rel="stylesheet" href="{{asset('website/css')}}/style.css">
+<style>
+    .wishlist svg {
+  fill: gray;
+  transition: fill 0.3s ease;
+}
+
+.wishlist.active svg {
+  fill: red;
+}
+</style>
 </head>
 <body>
 

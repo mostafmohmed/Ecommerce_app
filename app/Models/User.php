@@ -28,6 +28,12 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+    public function wishlist(){
+          return $this->belongsToMany(Broduct::class,'wishlists','user_id','produect_id',);  
+    }
+public function cart(){
+   return $this->hasMany(Cart::class,'user_id') ;
+}
 
     /**
      * Get the attributes that should be cast.

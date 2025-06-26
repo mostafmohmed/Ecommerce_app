@@ -13,6 +13,23 @@ class produectserveices
     {
         //
     }
+    public function getRelatedProduectByslug($slug,$limit=null){
+         $broduct = Broduct::with(['images','brand','category'])
+            ->where('slug', $slug)
+            ->first();
+
+if (!$broduct || !$broduct->category) {
+    return null;
+}
+
+// نحصل على المنتجات من نفس التصنيف (بدون تكرار المنتج نفسه إن أردت)
+return $broduct->category
+            ->products()
+            ->where('id', '!=', $broduct->id) // لا تجلب نفس المنتج
+            ->with(['images','brand','category'])
+            ->latest()
+            ->paginate($limit ); 
+    }
     public function getproduectByslug($slug){
         return Broduct::with(['images','brand','category'])->where('slug',$slug)->first();      
     }

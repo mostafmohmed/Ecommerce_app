@@ -10,4 +10,7 @@ class AttributeValue extends Model
     use HasTranslations ;
     protected $guarded = [];
     protected $translatable =['value']; 
+      public function attribut(){
+        return $this->belongsTo(Attribute::class,'attribute_id');
+    }
 }

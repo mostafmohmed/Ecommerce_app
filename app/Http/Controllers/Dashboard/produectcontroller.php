@@ -162,7 +162,8 @@ return view('dashboard.produect.index',compact('produect'));
         ];
       $p=  Broduct::create( $product);
 
-
+    $p->slug = Str::slug($p->getTranslation('name', 'en')) ;
+   $p->save();
         if ($request->has_variants==1) {
             foreach ($request->  prices as $key => $value) {
                 $p_v=ProductVariant::create([

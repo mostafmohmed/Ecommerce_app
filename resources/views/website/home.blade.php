@@ -200,7 +200,7 @@
         <div class="container">
     <div class="section-title">
     <h5>NEW ARRIVALS</h5>
-    <a href="product-sidebar.html" id="product-arrival-button" class="view">View All </a>
+    <a  id="product-arrival-button"   class="view">View All </a>
     </div>
     <div class="arrival-section">
     <div class="row g-5" id="product-arrival">
@@ -210,7 +210,7 @@
     <div class="product-img">
     <img src="{{asset('uploads/produect/'. $item->images()->first()->file_name)}}" alt="{{ $item->images()->first()->file_name}}">
     <div class="product-cart-items">
-    <a href="#" class="cart cart-item">
+    <a href="#"  class="cart cart-item">
     <span>
     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect width="40" height="40" rx="20" fill="white" />
@@ -259,10 +259,10 @@
     </span>
     </div>
     <div class="product-description">
-    <a href="{{route('website.produect')}}" class="product-details">{{ $item->name}}
+    {{-- <a href="{{route('website.produect',$item->slug)}}" class="product-details">{{ $item->name}} --}}
     </a>
     <div class="price">
-    @if ($item->has_variants==o)
+    @if ($item->has_variants==0)
            <span class="price-cut">{{$item->price}}</span>
     <span class="new-price">{{$item->pric -  $item->discount }}</span> 
         @endif
@@ -271,7 +271,7 @@
     </div>
     </div>
     <div class="product-cart-btn">
-    <a href="cart.html" class="product-btn">Add To Cart</a>
+    <a href="{{route('website.produect',$item->slug)}}" class="product-btn">Add To Cart</a>
     </div>
     </div>
     </div>  
@@ -1263,7 +1263,7 @@
     <a href="product-info.html" class="product-details">{{$item->name}}
     </a>
     <div class="price">
-        @if ($item->has_variants==o)
+        @if ($item->has_variants==0)
            <span class="price-cut">{{$item->price}}</span>
     <span class="new-price">{{$item->pric -  $item->discount }}</span> 
         @endif
@@ -1395,7 +1395,7 @@ $('#product-arrival-button').on('click', function () {
         url: "{{ route('website.produect.type','newArraval') }}",
         type: 'GET',
         success: function (data) {
-            $('#flash').empty();
+            $('#product-arrival').empty();
 
             data.forEach(function (item) {
                 let priceHtml = '';

@@ -19,7 +19,7 @@ class homecontroller extends Controller
     $slider=Slider::all();
     $categories=   $this->homeserveices->Categories(2) ;
    
-    $newArravalproduects= $this->homeserveices->newArravalproduects(2);
+    $newArravalproduects= $this->homeserveices->newArravalproduects(1);
      $getFlashproduects= $this->homeserveices->getFlashproduects(2);
      $getFlashproduectsWithTimer= $this->homeserveices->getFlashproduectsWithTimer(2);
 

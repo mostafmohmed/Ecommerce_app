@@ -13,6 +13,9 @@ class Broduct extends Model
 {
     return $query->where('has_discount', 1);
 }
+public function produectperview(){
+    return $this->hasMany(Produect_previews::class,'produect_id');
+}
     public function scopeActive(Builder $query)
     {
         return $query->where('status', 1);
