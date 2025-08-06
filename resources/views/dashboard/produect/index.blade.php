@@ -327,4 +327,5 @@ $(document).on('click', ' .deleteProductForm', function (e) {
             
             });
    </script>
+   {{-- <script src="{{asset('build/assets/app-DdD-mvsk.js')}}" >  </script> --}}
 @endsection

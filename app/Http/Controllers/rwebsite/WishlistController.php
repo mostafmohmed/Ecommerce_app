@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Auth ;
 
 class WishlistController extends Controller
 {
+   public function index(){
+      return view('website.wishlist');
+   }
    public function store($id){
  $wishlist= Wishlists::create([
     'produect_id'=>$id,
@@ -25,6 +28,8 @@ if ($wishlist) {
    public function destroy($id){
       $wishlist=  auth()->user()->wishlist()->detach($id);
          if ($wishlist) {
+            // $wishlist->delete();
+
    return response()->json(['status'=>true]);
 }else {
    return response()->json(['status'=>false]);

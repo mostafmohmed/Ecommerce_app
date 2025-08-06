@@ -95,6 +95,8 @@
 
 
 @section('js')
+<script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
+
 <script src="https://cdn.datatables.net/buttons/3.2.1/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/3.2.1/js/buttons.colVis.min.js" ></script>
 <script src="https://cdn.datatables.net/buttons/3.2.1/js/buttons.html5.min.js"></script>

@@ -2,6 +2,7 @@
 
 return [
     App\Providers\AppServiceProvider::class,
+    App\Providers\BroadcastServiceProvider::class,
     App\Providers\cacheprovider::class,
     App\Providers\viewserviceprovider::class,
     Yajra\DataTables\DataTablesServiceProvider::class,

@@ -1,18 +1,18 @@
    
    @extends('healper.website.app')
 @section('body')
-@if ($produet)
+@if ($produect)
     <section class="product arrival">
         <div class="container">
     <div class="section-title">
     <h5>
-    Showing {{ $produet->firstItem() }} to {{ $produet->lastItem() }} of {{ $produet->total() }} produets
+    Showing {{ $produect->firstItem() }} to {{ $produect->lastItem() }} of {{ $produect->total() }} produects
 </h5>
     <a href="product-sidebar.html" class="view">View All</a>
     </div>
         <div class="arrival-section">
     <div class="row g-5">
-        @forelse ($produet as $item)
+        @forelse ($produect as $item)
             <div class="col-lg-3 col-sm-6">
     <div class="product-wrapper" data-aos="fade-up">
     <div class="product-img">
@@ -88,7 +88,7 @@
    
 
    
-  {{ $produet->links() }}
+  {{ $produect->links() }}
    
   
    

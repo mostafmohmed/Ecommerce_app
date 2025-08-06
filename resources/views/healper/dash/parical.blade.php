@@ -17,7 +17,7 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 
 
   <!-- BEGIN VENDOR JS-->
-  
+  {{-- @vite(['resources/js/app.js']) --}}
   @include('healper.dash.script')
   <!-- END MODERN JS-->
   <!-- BEGIN PAGE LEVEL JS-->

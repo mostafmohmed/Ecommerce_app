@@ -11,7 +11,11 @@ class Admin extends Authenticatable
     use HasFactory, Notifiable;
 
     use HasTranslations ;
- 
+  public function receivesBroadcastNotificationsOn(): string
+{
+    return 'admin.' . $this->id;
+}
+
     protected $guarded = [];
     protected $translatable =['name']; 
    

@@ -43,21 +43,23 @@ class PayPalService
                     ]
                 ]],
                 "application_context" => [
-                    "return_url" => route('paypal.success'),
-                    "cancel_url" => route('paypal.cancel'),
+                    "return_url" => route('website.paypal.callback'),
+                    "cancel_url" => route('website.paypal.cancel'),
                 ]
             ]);
 
         return $response->json();
     }
 
-    public function captureOrder($orderId)
-    {
-        $token = $this->getAccessToken();
+   public function captureOrder($orderId)
+{
+    $token = $this->getAccessToken();
 
-        $response = Http::withToken($token)->withOptions(['verify' => false]) 
-            ->post('https://api-m.sandbox.paypal.com/v1/oauth2/token');
+    $response = Http::withToken($token)
+        ->withOptions(['verify' => false])
+        ->post("{$this->baseUrl}/v2/checkout/orders/{$orderId}/capture");
 
-        return $response->json();
-    }
+    return $response->json();
+}
+
 }

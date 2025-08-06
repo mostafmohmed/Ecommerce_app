@@ -23,7 +23,7 @@
                     <div class="row">
                         <!-- Contact Sidebar -->
                         <div class="col-md-3 d-none d-lg-block">
-                            @livewire('dashboard.contact.contact-sidebar')
+                            {{-- @livewire('dashboard.contact.contact-sidebar') --}}
                         </div>
 
                         <!-- Contact Messages -->
@@ -112,6 +112,85 @@
  <script>
  
     
+$(document).on('click', '.delete', function(e) {
+    e.preventDefault();
+        let id = $(this).data('id');
+console.log(id);
+  Swal.fire({
+        title: 'هل أنت متأكد؟',
+        text: 'سيتم حذف الرسالة نهائيًا!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'نعم، احذف!',
+        cancelButtonText: 'إلغاء'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: `/{{ LaravelLocalization::getCurrentLocale() }}/dashpoards/delete-massage/${id}`,
+                type: 'DELETE',
+                success: function(data) {
+                    if (data.status) {
+                        $('#light-' + id).remove(); // حذف من القائمة
+                        $('.massage_contect').empty(); // تفريغ التفاصيل إذا كانت ظاهرة
+                        Swal.fire('تم الحذف!', data.message, 'success');
+                    } else {
+                        Swal.fire('خطأ', data.message, 'error');
+                    }
+                }
+            });
+        }
+    });
+    });
+$(document).on('click', '.force_delete', function(e) {
+    e.preventDefault();
+    let id = $(this).data('id');
+
+    Swal.fire({
+        title: 'هل أنت متأكد؟',
+        text: 'سيتم حذف الرسالة نهائيًا!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'نعم، احذف!',
+        cancelButtonText: 'إلغاء'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: `/{{ LaravelLocalization::getCurrentLocale() }}/dashpoards/force-delete-massage/${id}`,
+                type: 'DELETE',
+                success: function(data) {
+                    if (data.status) {
+                        $('#light-' + id).remove(); // حذف من القائمة
+                        $('.massage_contect').empty(); // تفريغ التفاصيل إذا كانت ظاهرة
+                        Swal.fire('تم الحذف!', data.message, 'success');
+                    } else {
+                        Swal.fire('خطأ', data.message, 'error');
+                    }
+                }
+            });
+        }
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $(document).on('click', '.showMessage', function() {
 
     var massage_id=$(this).data('show-id');
@@ -126,58 +205,8 @@ $.ajax({
             success: function(data) {
                 $('.massage_contect').empty();
               
-                $('.massage_contect').append(`
-                    <div class="content-wrapper">
-                        <div class="content-body">
-                            <div class="card email-app-details d-none d-lg-block">
-                                <div class="card-content">
-                                    <div class="email-app-options card-body d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-primary" data-toggle="tooltip" title="Reply"><i class="la la-reply"></i></button>
-                                            <button type="button" class="btn btn-warning" data-toggle="tooltip" title="Report Spam"><i class="ft-alert-octagon"></i></button>
-                                            <button type="button" class="btn btn-danger" data-toggle="tooltip" title="Delete"><i class="ft-trash-2"></i></button>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">More</button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item mark_unreade" id="unreade-${data.massage.id}"   mark-id="${data.massage.id}"  href="#">Mark fas Unread</a>
-                                                <a class="dropdown-item" href="#">Force Delete</a>
-                                                <a class="dropdown-item" href="#">Restore</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                  $('.massage_contect').load(`/{{ LaravelLocalization::getCurrentLocale() }}/dashpoards/component-view/${data.massage.id}`);
 
-                                    <div class="email-app-title card-body">
-                                        <h3 class="list-group-item-heading"></h3>
-                                        <p class="list-group-item-text"><span class="badge badge-primary">Show Message</span></p>
-                                    </div>
-
-                                    <div class="media-list">
-                                        <div class="card-header p-0">
-                                            <div class="email-app-sender media border-0 bg-blue-grey bg-lighten-5">
-                                                <div class="media-left pr-1">
-                                                    <span class="avatar avatar-md">
-                                                       
-                                                    </span>
-                                                </div>
-                                                <div class="media-body w-100">
-                                                    <h6 class="list-group-item-heading">From: ` + data.massage.name + `</h6>
-                                                    <p class="list-group-item-text"><span class="float-right text-muted">` + data.massage.created_at + `</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="card-collapse collapse show">
-                                            <div class="card-body">
-                                                <p>` + data.massage.massage + `</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `);
             }
 });
     // Your logic here to show the message, maybe another AJAX call or UI update

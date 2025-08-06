@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\branderequest;
+use App\Models\Brande;
 use App\services\Dashboard\Brandeservices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -53,6 +54,7 @@ return redirect()->back();
     /**
      * Display the specified resource.
      */
+   
     public function show(string $id)
     {
         //

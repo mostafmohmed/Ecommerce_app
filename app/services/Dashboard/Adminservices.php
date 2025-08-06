@@ -50,7 +50,7 @@ class Adminservices
         if(   !$Admin ){
             return abort(404);
         }
-        return $Admin;
+        return $Admin->delete();
     }
 
     public function update($request ,$id){
@@ -59,9 +59,9 @@ class Adminservices
         return abort(404);
        
      }
-     if ($request==Null) {
-        unset($request->password);
-     }
+    //  if ($request==Null) {
+    //     unset($request->password);
+    //  }
    return  $this-> adminRepositories->update($request,$Admin);
     }
 

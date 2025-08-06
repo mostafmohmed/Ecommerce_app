@@ -54,6 +54,20 @@
 <label for="phone" class="form-label">notes</label>
 <input type="tel" name="note" id="phone" name="" class="form-control" placeholder="+880388**0899">
 </div>
+<div class="review-form-name">
+    <label class="form-label d-block">Type of Payment</label>
+
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="type_payment" id="paypal" value="paypal">
+        <label class="form-check-label" for="paypal">PayPal</label>
+    </div>
+
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="type_payment" id="myfatora" value="myfatora">
+        <label class="form-check-label" for="myfatora">MyFatora</label>
+    </div>
+</div>
+
 </div>
  @php
                 $country=App\Models\Country::get()
@@ -130,7 +144,7 @@ Create an account?</label>
 </div>
 </section>
     @endsection
-    @section('js')
+    @section('jswbsite')
     <script>
 
 

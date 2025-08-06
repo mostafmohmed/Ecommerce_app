@@ -10,6 +10,41 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    public function updateAjax(Request $request)
+{
+    $cartItem = Cart::findOrFail($request->id);
+    $cartItem->quantity = $request->quantity;
+        $product = $cartItem->product;
+
+       if ($request->quantity > $product->quantity) {
+        return response()->json([
+            'success' => false,
+            'message' => 'الكمية المطلوبة أكبر من الكمية المتاحة في المخزون.'
+        ], 400);
+    }
+
+    // احسب الفرق بين الكمية القديمة والجديدة
+    $oldQuantity = $cartItem->quantity;
+    $newQuantity = $request->quantity;
+    $quantityDifference = $newQuantity - $oldQuantity;
+    // إذا كانت الكمية الجديدة أكبر، اخصم الفرق من المنتج
+    if ($quantityDifference > 0) {
+        $product->quantity -= $quantityDifference;
+    } 
+
+    $product->save();
+    $cartItem->quantity = $newQuantity;
+    $cartItem->save();
+
+    return response()->json(['success' => true]);
+
+
+    return response()->json(['success' => true]);
+}
+    public function index(){
+        $cart=auth()->user()->cart()->with('product')->get();
+        return view('website.cart',compact('cart'));
+    }
     public function coponadd(Request $request){
 
  $coupons=  Coupons::where('code',$request->copon)->first();

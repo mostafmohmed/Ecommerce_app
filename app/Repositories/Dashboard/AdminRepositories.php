@@ -3,6 +3,7 @@
 namespace App\Repositories\Dashboard;
 
 use App\Models\Admin;
+use Illuminate\Support\Facades\Hash;
 
 class AdminRepositories
 {
@@ -17,12 +18,20 @@ class AdminRepositories
         return Admin::find($id);
     }
     public function update($request ,$Admin){
-        $Admin = $Admin->update([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'password'=>$request->password,
-            'Admin_id'=>$request->Admin_id,
-        ]);
+
+
+        $data = [
+    'name' => $request->name,
+    'email' => $request->email,
+    'role_id' => $request->role_id,
+    'status' => $request->status,
+];
+
+// لو الباسورد مش فاضية، ضيفها للبيانات بعد ما نعملها هاش
+if ($request->filled('password')) {
+    $data['password'] = Hash::make($request->password);
+}
+        $Admin = $Admin->update(  $data);
         return $Admin;
     
     }
@@ -36,10 +45,7 @@ class AdminRepositories
     }
     public function create($request){
     $admin=    Admin::create([
-        'name'=>[
-            'ar'=>$request->Admin['ar'],
-            'en'=>$request->Admin['en'],
-        ],
+        'name'=>$request->name,
         'email'=>$request->email,
         'password'=>$request->password,
         'role_id'=>$request->Admin_id,

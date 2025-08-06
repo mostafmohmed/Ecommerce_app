@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Adminrequest;
+use App\Models\Role;
 use App\Repositories\Dashboard\AdminRepositories;
 use App\services\Dashboard\Adminservices;
 use Illuminate\Http\Request;
@@ -17,6 +18,7 @@ class Admincontroller extends Controller
     }
     public function index()
     {
+        // dd(auth('admin')->user()->id);
         $dmins =$this->adminservices->Admins();
         
         return view('dashboard.admin.index',compact('dmins'));
@@ -27,7 +29,8 @@ class Admincontroller extends Controller
      */
     public function create()
     {
-       return view('dashboard.admin.create');
+        $roles=Role::all();
+       return view('dashboard.admin.create', compact('roles'));
     }
 
     /**
@@ -56,8 +59,9 @@ class Admincontroller extends Controller
      */
     public function edit(string $id)
     {
-        $role=   $this->adminservices->getAdminid($id);
-        return view('dashboard.admin.edite',compact('role'));
+        $admin=   $this->adminservices->getAdminid($id);
+        $roles=Role::all();
+        return view('dashboard.admin.edite',compact('admin','roles'));
         
     }
 
@@ -93,9 +97,9 @@ class Admincontroller extends Controller
     {
       $d=  $this->adminservices->destroy($id);
       if(!$d){
-        return redirect()-> back()->with('error', __('dashboard.error_msg'));
+        return  response()->json(['status'=>false]);
 
      }
-     return redirect()->back()->with('success' , __('dashboard.success_msg'));
+     return  response()->json(['status'=>true]);
     }
 }

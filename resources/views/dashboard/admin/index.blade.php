@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="rtl">
-@include('healper.dash.head')
-<body class="vertical-layout vertical-menu-modern 2-columns   menu-expanded fixed-navbar"
-data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-  <!-- fixed-top-->
-  @include('healper.dash.navbar')
-  <!-- ////////////////////////////////////////////////////////////////////////////-->
-  @include('healper.dash.sidbar')
-  <div class="app-content content">
+@section('content')
+@extends('healper.dash.parical')
+@section('content')
+<div class="app-content content">
     <div class="content-wrapper">
         <div class="content-header row">
             <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
@@ -65,6 +59,7 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                                     <th scope="col">#</th>
                                     <th scope="col">{{ __('dashboard.name') }}</th>
                                     <th scope="col">{{ __('dashboard.email') }} </th>
+                                          <th scope="col">password</th>
                                     <th scope="col">{{ __('dashboard.role') }} </th>
                                     <th scope="col">{{ __('dashboard.status') }} </th>
                                     <th scope="col">{{ __('dashboard.created_at') }} </th>
@@ -74,13 +69,17 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                             <tbody>
 
                                 @forelse ($dmins as $dmin)
-                                    <tr>
+                                    <tr id="Admin-delete-{{$dmin->id}}" >
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{ $dmin->name }} </td>
                                         <td>{{ $dmin->email }} </td>
-                                        <td>{{ $dmin->password }} </td>
-                                        <td>{{ $dmin->role->role}} </td>
-                                        <td>{{ $dmin->status }} </td>
+                                         <td>{{ $dmin->password }} </td>
+                                             <td>{{ $dmin->role?->role}} </td>
+                                            
+                                                           <td>{{ $dmin->status }} </td>
+
+                                       
+
                                         <td>{{ $dmin->created_at->format('Y-m-d') }} </td>
                                      
                                         <td>
@@ -97,10 +96,11 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                                                     <a class="dropdown-item"
                                                        
                                                     class="la @if($dmin->status == 'Active') la-toggle-on @else la-toggle-off @endif"></i>@if($dmin->status == 'Active') Deactivate @else Activate @endif ><i
-                                                            class="la la-trash"></i> Delete</a>
-                                                            <a class="dropdown-item"
+                                                            class="la la-trash"></i> Delete
+                                                        </a>
+                                                            <a class="dropdown-item delete_confiurm_bt" Admin_id="{{ $dmin->id}}"
                                                             href="javascript:void(0)"
-                                                            onclick="if(confirm('Are you sure you want to delete this role?')){document.getElementById('delete-form-{{ $dmin->id }}').submit();} return false"><i
+                                                          ><i
                                                                 class="la la-trash"></i> Delete</a>
                                                 </div>
                                             </div>
@@ -109,11 +109,11 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 
 
                                     {{-- delete form  --}}
-                                    <form id="delete-form-{{ $dmin->id }}"
+                                    {{-- <form id="delete-form-{{ $dmin->id }}"
                                         action="{{ route('dashpoard.Admin.destroy', $dmin->id) }}" method="post">
                                         @csrf
                                         @method('DELETE')
-                                    </form>
+                                    </form> --}}
 
 
                                 @empty
@@ -128,19 +128,61 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
         </div>
     </div>
 </div>
-  <!-- ////////////////////////////////////////////////////////////////////////////-->
+@endsection
  
 
 
-  @include('healper.dash.footer')
 
+@section('js')
+<script>
+    $(document).on('click','.delete_confiurm_bt',function(e){
+    e.preventDefault();
+    var Admin_id=$(this).attr('Admin_id');
+    console.log(Admin_id);
+    
+    Swal.fire({
+                            position: "top",
+                            icon: "warning",
+                            title:'are you shuare delete',
+                            showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+                        }).then((result) => {
+             if (result.isConfirmed) {
+                $.ajax({
+                    url: `/{{ LaravelLocalization::getCurrentLocale() }}/dashpoards/Admin/${Admin_id}`,
+                    type:'DELETE',
+                    data:{
+                        _token:"{{csrf_token()}}"
+                    },
+                    success:function(respose){
+if (respose.status==true) {
+    $('Admin-delete-'respose.id).remove();
+    Swal.fire({
+                            
+        title: 'sucess',
+                                    text: 'sucess delete',
+                                    icon: "success"
+                           
+    });
 
+   
+    
+}else{
+    Swal.fire({
+                            
+                            title: 'sucess',
+                                                        text: 'fail  delete',
+                                                        icon: "error"
+                                               
+                        });
+}
+                    },
+                })
+             } 
+         });
 
-  <!-- BEGIN VENDOR JS-->
-  
-  @include('healper.dash.script')
-  <!-- END MODERN JS-->
-  <!-- BEGIN PAGE LEVEL JS-->
-  <!-- END PAGE LEVEL JS-->
-</body>
-</html>
+});
+</script>
+@endsection

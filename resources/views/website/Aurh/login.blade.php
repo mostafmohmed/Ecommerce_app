@@ -78,7 +78,9 @@
     </div>
   </section>
 @endsection
-@section('js')
+@section('jswbsite')
+<script src="{{ asset('website/assets/js/jquery_3.7.1.min.js') }}"></script>
+
 <script>
     $('#submitlogin').on('click', function (e) {
     e.preventDefault(); // Prevent the default anchor behavior

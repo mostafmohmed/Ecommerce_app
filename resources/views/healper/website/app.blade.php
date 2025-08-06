@@ -3,10 +3,21 @@
 
 <!-- Mirrored from quomodothemes.website/html/shopus/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 15 Nov 2023 07:46:51 GMT -->
 <head>
+     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    @livewireStyles
+
+          {{-- @vite('resources/css/app.css') --}}
+
+
 <meta charset="utf-8">
 <meta name="keywords" content="ShopUS, bootstrap-5, bootstrap, sass, css, HTML Template, HTML,html, bootstrap template, free template, figma, web design, web development,front end, bootstrap datepicker, bootstrap timepicker, javascript, ecommerce template">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="http://127.0.0.1:8000/website/assets/js/jquery_3.7.1.min.js"></script>
+
 <link rel="icon" href="{{asset('website/assets/')}}images/homepage-one/icon.png">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 
 <title>{{$settings->site_name}}</title>
 <link rel="stylesheet" href="{{ asset('file-input/css/fileinput.min.css') }}">
@@ -222,8 +233,11 @@ Contact Info
 </section>
 
 @include('healper.website.script')
+{{-- @yield('js') --}}
 
+@livewireScripts
 </body>
+    
 
 <!-- Mirrored from quomodothemes.website/html/shopus/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 15 Nov 2023 07:47:15 GMT -->
 </html>

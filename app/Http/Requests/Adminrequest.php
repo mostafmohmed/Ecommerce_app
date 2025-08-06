@@ -22,7 +22,7 @@ class Adminrequest extends FormRequest
      */
     public function rules(): array
     {
-        $data = [
+        $rules = [
             'name'=>['required' , 'min:2' , 'max:60'],
             'email'=>['required' , 'email' , 'max:100' , Rule::unique('admins' , 'email')->ignore($this->id)],
             'role_id'=>['required' , 'exists:roles,id'],
@@ -36,7 +36,7 @@ class Adminrequest extends FormRequest
             $rules['password']=['required' , 'confirmed' , 'min:8' , 'max:100'];
             $rules['password_confirmation']=['required'];
         }
-        return $data;
+        return $rules;
 
     }
 }

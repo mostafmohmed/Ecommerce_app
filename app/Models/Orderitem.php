@@ -8,4 +8,7 @@ class Orderitem extends Model
 {
           protected $guarded = [];
 
+          public function product(){
+            return $this->belongsTo(Broduct::class,'prodect_id');
+          }
 }

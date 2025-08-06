@@ -17,13 +17,29 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+     public function receivesBroadcastNotificationsOn(): string
+{
+    return 'user.' . $this->id;
+}
+public function orders(){
+    return $this->hasMany(Order::class,'user_id');
+}
     protected $guarded = [];
+    // public function wishlist(){
+    //     return $this->hasMany(Wishlists::class,'user_id');
+    // }
 
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var list<string>
      */
+     public function perview(){
+        return $this->hasMany(Produect_previews::class,'user_id');
+    }
+    public function goverment(){
+        return $this->belongsTo(Governreate::class,'governorate_id');
+    }
     protected $hidden = [
         'password',
         'remember_token',

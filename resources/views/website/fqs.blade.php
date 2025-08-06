@@ -92,7 +92,7 @@
 </section>
 
 @endsection
-@section('js')
+@section('jswbsite')
    
         <script>
   document.getElementById('submitBtn').addEventListener('click', function(e) {

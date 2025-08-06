@@ -8,4 +8,8 @@ class Wishlists extends Model
 {
      protected $guarded = [];
 
+
+//       public function wishlist(){
+//           return $this->belongsToMany(Broduct::class,'wishlists','user_id','produect_id',);  
+//     }
 }

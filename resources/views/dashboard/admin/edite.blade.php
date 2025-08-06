@@ -46,8 +46,8 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                 </div>
                 <div class="card-content collapse show">
                     <div class="card-body">
-                        @include('dashboard.includes.validations-errors')
-                        <form class="form" action="{{ route('dashboard.admins.update', $admin->id) }}" method="POST">
+                        @include('dashboard.includes.erreors')
+                        <form class="form" action="{{ route('dashpoard.Admin.update', $admin->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <input name="id" type="hidden" value="{{ $admin->id }}">

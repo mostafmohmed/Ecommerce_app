@@ -1,6 +1,6 @@
 @extends('healper.website.app')
 @section('body')
- <section class="product product-info">
+   <section class="product product-info">
 <div class="container">
 <div class="blog-bradcrum">
 <span><a href="{{route('website.home')}}">Home</a></span>
@@ -13,56 +13,39 @@
 <div class="row ">
 <div class="col-md-6">
 <div class="product-info-img" data-aos="fade-right">
+
 <div class="swiper product-top">
 <div class="product-discount-content">
 <h4>-50%</h4>
 </div>
 <div class="swiper-wrapper">
+
+
+
+@foreach ($produect->images as $item)
 <div class="swiper-slide slider-top-img">
-<img src="assets/images/homepage-one/product-img/product-img-14.webp" alt="img">
+<img src="{{asset('uploads/produect/'.$item->file_name)}}" alt="img">
 </div>
-<div class="swiper-slide slider-top-img">
-<img src="assets/images/homepage-one/product-img/product-slider-img-1.webp" alt="img">
-</div>
-<div class="swiper-slide slider-top-img">
-<img src="assets/images/homepage-one/product-img/product-slider-img-2.webp" alt="img">
-</div>
-<div class="swiper-slide slider-top-img">
-<img src="assets/images/homepage-one/product-img/product-slider-img-3.webp" alt="img">
-</div>
-<div class="swiper-slide slider-top-img">
-<img src="assets/images/homepage-one/product-img/product-slider-img-1.webp" alt="img">
-</div>
-<div class="swiper-slide slider-top-img">
-<img src="assets/images/homepage-one/product-img/product-slider-img-2.webp" alt="img">
-</div>
-<div class="swiper-slide slider-top-img">
-<img src="assets/images/homepage-one/product-img/product-slider-img-3.webp" alt="img">
-</div>
-<div class="swiper-slide slider-top-img">
-<img src="assets/images/homepage-one/product-img/product-slider-img-1.webp" alt="img">
-</div>
-<div class="swiper-slide slider-top-img">
-<img src="assets/images/homepage-one/product-img/product-slider-img-2.webp" alt="img">
-</div>
-<div class="swiper-slide slider-top-img">
-<img src="assets/images/homepage-one/product-img/product-slider-img-3.webp" alt="img">
+@endforeach
+
+
+
+
 </div>
 </div>
-</div>
+
 <div class="swiper product-bottom">
 <div class="swiper-wrapper">
-<div class="swiper-slide slider-bottom-img">
-<img src="assets/images/homepage-one/product-img/product-img-16.png" alt="img">
+
+@foreach ($produect->images as $item)
+    <div class="swiper-slide slider-bottom-img">
+<img src="{{asset('uploads/produect/'.$item->file_name)}}" alt="img">
 </div>
-<div class="swiper-slide slider-bottom-img">
-<img src="assets/images/homepage-one/product-img/product-img-17.png" alt="img">
-</div>
-<div class="swiper-slide slider-bottom-img">
-<img src="assets/images/homepage-one/product-img/product-slider-img-2.webp" alt="img">
-</div>
+@endforeach
+
 </div>
 </div>
+
 </div>
 </div>
 <div class="col-md-6">
@@ -91,7 +74,9 @@
         <span class="new-price">{{ $produect->price - $produect->discount }}</span>
     @endif
 @else
-    <span class="new-price">has variants</span>
+    <span class="">has variants</span>
+            <span id="product-price" class="new-price"></span> 
+
 @endif
 </div>
 <p class="content-paragraph">It is a long established fact that a reader will be distracted
@@ -122,20 +107,22 @@ by <span class="inner-text">the readable there content of a page.</span></p>
     {{-- @foreach ( $produect->variants ->VariantAttributes->attributeValue as $item) --}}
     {{-- {{$produect->variants}} --}}
   @foreach ($produect->variants as $item)
-    @foreach ($item->variantAttributes as $attribute)
+   
         <li class="option">
+           @foreach ($item->variantAttributes as $attribute)
             <span class="option-text">
                 <a 
                     href="#"
                     data-price="{{ $item->price }}" 
                     data-variant-id="{{ $item->id }}"
                     class="change_variant">
-                    {{ $attribute->attributeValue->attribut->name }}
+                    {{ $attribute->attributeValue->attribut->name }}:{{ $attribute->attributeValue->value }}
                 </a>
             </span>
-            <span class="option-measure">  {{ $attribute->attributeValue->value }}</span>
+  @endforeach
+            {{-- <span class="option-measure">  </span> --}}
         </li>
-    @endforeach
+  
 @endforeach
       
     {{-- @endforeach --}}
@@ -188,9 +175,9 @@ by <span class="inner-text">the readable there content of a page.</span></p>
 </div>
 <hr>
 <div class="product-details">
-<p class="category">Category : <span class="inner-text">Kitchen</span></p>
+<p class="category">Category : <span class="inner-text">{{$produect->category->name}}</span></p>
 <p class="tags">Tags : <span class="inner-text">Beer, Foamer</span></p>
-<p class="sku">SKU : <span class="inner-text">KE-91039</span></p>
+<p class="sku">SKU : <span class="inner-text">{{$produect->sku}}</span></p>
 </div>
 <hr>
 <div class="product-report">
@@ -308,11 +295,41 @@ gesture support</p>
 </ul>
 </div>
 </div>
+
+
+
 <div class="tab-pane fade" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab" tabindex="0">
 <div class="product-review-section" data-aos="fade-up">
 <h5 class="intro-heading">Reviews</h5>
-<div class="review-wrapper">
-<div class="wrapper">
+@auth
+<form id="review-form">
+    @csrf
+    <input type="hidden" name="product_id" value="{{ $produect->id }}">
+    
+    <div class="mb-3">
+        <label for="comment" class="form-label">اكتب تعليقك:</label>
+        <textarea name="comment" id="comment" class="form-control" ></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="rating" class="form-label">التقييم (من 1 لـ 5):</label>
+        <select name="rating" id="rating" class="form-control" >
+            <option value="">اختر التقييم</option>
+            @for ($i = 1; $i <= 5; $i++)
+                <option value="{{ $i }}">{{ $i }} نجوم</option>
+            @endfor
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">إرسال التعليق</button>
+</form>
+@else
+<p class="mt-3">يجب تسجيل الدخول لإضافة تعليق.</p>
+@endauth
+<div class="review-wrapper" id="reviews-list">
+    @include('components.product-reviews', ['product' => $produect])
+
+{{-- <div class="wrapper">
 <div class="wrapper-aurthor">
 <div class="wrapper-info">
 <div class="aurthor-img">
@@ -344,10 +361,18 @@ type and scrambled it to make a type specimen book. It has survived not only
 five centuries but also the on leap into electronic typesetting, remaining
 </p>
 </div>
+</div> --}}
+
+</div>
+
+
+
 </div>
 </div>
-</div>
-</div>
+
+
+
+
 </div>
 </div>
 </div>
@@ -355,7 +380,7 @@ five centuries but also the on leap into electronic typesetting, remaining
 <section class="product weekly-sale product-weekly footer-padding">
 <div class="container">
 <div class="section-title">
-<h5>Best Sell in this Week</h5>
+<h5>relatiedproduect</h5>
 <a href="#" class="view">View All</a>
 </div>
 <div class="weekly-sale-section">
@@ -450,15 +475,63 @@ five centuries but also the on leap into electronic typesetting, remaining
 </div>
 </section>
 @endsection
-@section('js')
+@section('jswbsite')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
- $('.toggle-btn').on('click', function () {
+
+
+$('#review-form').on('submit', function(e) {
+    e.preventDefault();
+
+    $.ajax({
+        url: "{{route('website.review.store')}}",
+        method: "POST",
+        data: $(this).serialize(),
+        success: function (response) {
+            // $('#review-message').html('<span class="text-success">' + response.message + '</span>');
+            $('#review-form')[0].reset();
+
+            // تحميل الريفيوهات من جديد (اختياري)
+             const productId = $('input[name=product_id]').val();
+             console.log(productId);
+             
+            var route="{{ route('website.reviews.component', ':id') }}".replace(':id', productId);
+           
+            $('#reviews-list').load(route);
+        },
+        error: function (xhr) {
+            if (xhr.responseJSON && xhr.responseJSON.errors) {
+                let errorText = Object.values(xhr.responseJSON.errors).join('<br>');
+                $('#review-message').html('<span class="text-danger">' + errorText + '</span>');
+            } else {
+                $('#review-message').html('<span class="text-danger">حدث خطأ، حاول مرة أخرى</span>');
+            }
+        }
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+ $(document).on('click', '.toggle-btn', function () {
     // عند الضغط على الزر، اعرض أو أخفِ قائمة المقاسات
     $('.size-option').slideToggle(200); // يمكنك استخدام fadeToggle أو toggle فقط حسب الذوق
   });
 let selectedVariants = {}; 
 $('.change_variant').on('click', function (e) {
   e.preventDefault();
+  console.log('gggggggggg');
+  
  let price = parseFloat($(this).data('price'));
           $('#product-price').text(price);
   let productId = $('.add-to-cart-btn').data('product-id'); // نفترض منتج واحد للعرض

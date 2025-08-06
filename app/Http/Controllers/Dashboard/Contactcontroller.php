@@ -8,6 +8,44 @@ use Illuminate\Http\Request;
 
 class Contactcontroller extends Controller
 {
+
+public function Delete($id){
+    $Contact = Contact::findOrFail($id);
+
+    try {
+        $Contact->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'خذف موقت',
+            'id' => $id,
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Error: ' . $e->getMessage(),
+        ]);
+    }  
+}
+public function forceDelete($id){
+    $Contact = Contact::withTrashed()->findOrFail($id);
+
+    try {
+        $Contact->forceDelete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Deleted permanently',
+            'id' => $id,
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Error: ' . $e->getMessage(),
+        ]);
+    }
+}
+
     public function mark_unreade($id){
         $massages=Contact::find($id);
         if ($massages->is_reade==1) {
@@ -18,7 +56,8 @@ class Contactcontroller extends Controller
         }
     }
    public function massages(){
-    $massages=Contact::get();
+    // dd(auth()->guard('admin')->user()); // ← أو 'web' حسب guard المستخدم
+    $massages=Contact::withTrashed()->get();
     // dd( $massages);
     return view('dashboard.contact.index',compact('massages'));
    }

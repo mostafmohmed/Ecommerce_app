@@ -15,14 +15,24 @@ class orderservices
     /**
      * Create a new class instance.
      */
-    public function createTransaction($orderId,$data){
-        Transaction::create([
-            'user_id'=>auth()->user()->id,
-            'order_id'=>$orderId,
-'transaction_id'=>$data['Data']['InvoiceId'],
-'payment_method'=>'paypal'
-        ]);
+ public function createTransaction($orderId, $data, $paymentMethod)
+{
+    $transactionId = null;
+
+    if ($paymentMethod === 'myfatora') {
+        $transactionId = $data['Data']['InvoiceId'] ?? null;
+    } elseif ($paymentMethod === 'paypal') {
+        // PayPal usually returns 'id' as the transaction/order ID
+        $transactionId = $data['id'] ?? null;
     }
+
+    Transaction::create([
+        'user_id' => auth()->id(),
+        'order_id' => $orderId,
+        'transaction_id' => $transactionId,
+        'payment_method' => $paymentMethod
+    ]);
+}
     public function __construct()
     {
         //
@@ -35,7 +45,8 @@ if (!$cart) {
     # code...
 }
  $subtotal= $cart->sum(fn($item)=>$item->price*$item->quantity);
-$getshappingprice=$this->getshappingprice($adress['govement_id']);
+//  dd($adress);
+$getshappingprice=$this->getshappingprice($adress);
 $copons=$cart->first()?->copons;
 if ( $copons !=null) {
     $copon= Coupons::where('code',$copons)->first();
@@ -51,6 +62,7 @@ return $total;
 
     }
     public function createorder( $data){
+        // dd( $data);
 $countryname=$this->getLocationName(Country::class,$data['country_id']);
 $governratename=$this->getLocationName(Governreate::class,$data['govement_id']);
 $cityename=$this->getLocationName(City::class,$data['city_id']);

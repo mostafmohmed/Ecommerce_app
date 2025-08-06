@@ -19,7 +19,7 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a
-                                        href="{{ route('dashboard.welcome') }}">{{ __('dashboard.dashboard') }}</a>
+                                        href="{{ route('dashpoard.index') }}">{{ __('dashboard.dashboard') }}</a>
                                 </li>
                                 <li class="breadcrumb-item"><a href="{{ route('dashpoard.Admin.index') }}">admins</a>
                                 </li>
@@ -75,7 +75,7 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="userinput1"> Password</label>
-                                                <input type="passwrod" id="userinput1" class="form-control border-primary"
+                                                <input type="password" id="userinput1" class="form-control border-primary"
                                                     placeholder="Enter Password" name="password">
                                             </div>
                                         </div>
