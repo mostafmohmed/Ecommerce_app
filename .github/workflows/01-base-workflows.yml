@@ -3,7 +3,7 @@ name: Run Laravel Tests
 on: workflow_dispatch # متى يشتغل: عند push أو PR
 
 jobs:
-  laravel-tests: 
+  laravel-testsss: 
     runs-on: ubuntu-latest  # نوع السيرفر
 
     steps:
